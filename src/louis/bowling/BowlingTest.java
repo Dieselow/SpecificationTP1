@@ -25,7 +25,6 @@ public class BowlingTest {
     @Before
     public void setup() {
         setupGame();
-
         setupDemoGame();
     }
 
@@ -49,6 +48,10 @@ public class BowlingTest {
         }
     }
 
+    /**
+     * Ce test a pour but de vérifier que l'on ne
+     * peut pas lancer plus de 2 fois sur une Normal Frame
+     */
     @Test
     public void checkThatThePlayerCantRollMoreThan2TimesOnNormalFrame() {
         exceptionRule.expect(BowlingException.class);
@@ -56,6 +59,10 @@ public class BowlingTest {
         game.getFrame(1).setPinsDown(1, 2).setPinsDown(2, 2).setPinsDown(3, 2);
     }
 
+    /**
+     * Ce test a pour but de vérifier que l'on ne peut pas
+     * lancer plus de deux fois sur une LastFrame quand pas d'abat ou de réserve
+     */
     @Test
     public void checkThatThePlayerCantRollMoreThan2TimesOnLastFrameWhenNoStrikeOrSpare() {
         exceptionRule.expect(BowlingException.class);
@@ -63,49 +70,60 @@ public class BowlingTest {
         game.getFrame(9).setPinsDown(1, 2).setPinsDown(2, 2).setPinsDown(3, 2);
     }
 
+    /**
+     * Ce test a pour but de vérifier que
+     * l'on ne peut pas relancer après un strike sur une NormalFrame
+     */
     @Test
     public void checkStrikeRollDoesntAllowAnotherRoll() {
         exceptionRule.expectMessage("The total score exceeds 10");
         game.getFrame(2).setPinsDown(1, 10).setPinsDown(2, 1);
     }
 
+    /**
+     * Ce test a pour but de vérifier le contenu toString d'une NormalFrame après Strike
+     */
     @Test
     public void checkStrikeCloseTheFrame() {
         Assert.assertTrue(game.getFrame(3).setPinsDown(1, 10).toString().contains("X"));
     }
 
+    /**
+     * Ce test a pour but de vérifier le contenu d'une NormalFrame après Spare
+     */
     @Test
     public void checkSpare() {
         Assert.assertTrue(game.getFrame(4).setPinsDown(1, 5).setPinsDown(2, 5).toString().contains("5/"));
     }
 
+    /**
+     * Ce test a pour but de vérifier que l'on ne peut pas entrer de lancer 0
+     */
     @Test
     public void checkSetPinsDownRollNumberWithZero() {
         exceptionRule.expectMessage("There is no such roll 0");
         game.getFrame(5).setPinsDown(0, 2);
     }
 
+    /**
+     * Ce test a pour but de vérifier que l'on put lancer 3 fois sur une LastFrame après spare
+     */
     @Test
     public void checkFrameRollsWithSpare() {
         LastFrame frame = (LastFrame) game.getFrame(9).reset();
         frame.setPinsDown(1, 5).setPinsDown(2, 5).setPinsDown(3, 5);
     }
 
-    @Test
-    public void checkLastFrameRollsWithRegularScore() {
-        exceptionRule.expectMessage("No third roll is allowed");
-        LastFrame frame = (LastFrame) game.getFrame(9).reset();
-        frame.setPinsDown(1, 2).setPinsDown(2, 2).setPinsDown(3, 5);
-    }
-
-
+    /**
+     * Ce test a pour but de vérifier le score total de la game de démo disponible sur Moodle
+     */
     @Test
     public void checkScoreWithDemoGame() {
         Assert.assertEquals(demo.getCumulativeScore(10), 109);
     }
 
     /**
-     * Mistake
+     * Erreur: Ce test a pour but de vérifier que l'on peut lancer 3 fois sur une LastFrame après un strike
      */
     @Test
     public void checkLastFrameRollsWithStrike() {
@@ -114,7 +132,7 @@ public class BowlingTest {
     }
 
     /**
-     * Mistake
+     * Erreur: Ce test a pour but de vérifier le contenu toString de la game de démo disponible sur Moodle
      */
     @Test
     public void checkToStringMethodWithRegularGame() {
@@ -124,6 +142,9 @@ public class BowlingTest {
                 "|9   |24  |29  |49  |59  |59  |65  |85  |96  |109 |", demo.toString());
     }
 
+    /**
+     * Ce test a pour but de vérifier que la méthod reset réinitialise le nombre de lancer
+     */
     @Test
     public void checkResetMethodResetCountRolls() {
         resetGameFrames();
@@ -132,6 +153,9 @@ public class BowlingTest {
         Assert.assertEquals(game.getFrame(0).countRolls(), 0);
     }
 
+    /**
+     * Ce test a pour but de vérifier que la méthode reset réinitialise le nombre de quille
+     */
     @Test
     public void checkResetMethodResetCountPins() {
         resetGameFrames();
@@ -140,6 +164,9 @@ public class BowlingTest {
         Assert.assertEquals(game.getFrame(0).countPinsDown(), 0);
     }
 
+    /**
+     * Ce test a pour but de vérifier la méthod getPindDown
+     */
     @Test
     public void checkCountPinsDownMethodWithParameter() {
         resetGameFrames();
@@ -147,6 +174,9 @@ public class BowlingTest {
         Assert.assertEquals(5, game.getFrame(0).getPinsDown(1));
     }
 
+    /**
+     * Ce test a pour but de vérifier la method getPinsDown après avoir utiliser la méthod reset
+     */
     @Test
     public void checkCountPinsDownMethodWithParameterAfterReset() {
         resetGameFrames();
@@ -155,7 +185,9 @@ public class BowlingTest {
         Assert.assertEquals(game.getFrame(0).getPinsDown(1), -1);
     }
 
-
+    /**
+     * Ce test a pour but de vérifier la longueur toString de chacun des NormalFrame
+     */
     @ParameterizedTest
     @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7, 8})
     public void checkToStringMethodWithCharacterCountForNormalFrame(int frameNumber) {
@@ -163,12 +195,17 @@ public class BowlingTest {
         Assert.assertEquals(2, game.getFrame(frameNumber).toString().length());
     }
 
-
+    /**
+     * Ce test a pour but de vérifier la longeur de la méthod toString sur une LastFrame
+     */
     @Test
     public void checkToStringMethodWithCharacterCountForLastFrame() {
         Assert.assertEquals(3, game.getFrame(9).toString().length());
     }
 
+    /**
+     * Ce test a pour but de vérifier que la méthod reset influe sur le score total
+     */
     @Test
     public void checkThatResetInfluenceCumulativeScore() {
         demo.getFrame(4).reset();
@@ -176,7 +213,7 @@ public class BowlingTest {
     }
 
     /**
-     * Mistake
+     * Erreur: Ce test a pour but de vérifier le nombre de lancer totaux lorsque l'on en fait qu'un seul sur une LastFrame
      */
     @Test
     public void checkCountRollsWhenOnlyOneIsDoneOnLastFrame() {
@@ -186,20 +223,31 @@ public class BowlingTest {
     }
 
     /**
-     * Mistake
+     * Erreur: Ce test a pour but de vérifier le nombre de quilles quand il n'y a pas tout les lancer de faits sur une NormalFrame
      */
     @Test
-    public void checkCountPinsDownsWhenNotAllRollsDoneOnFrame() {
+    public void checkCountPinsDownsWhenNotAllRollsDoneOnNormalFrame() {
         game.getFrame(1).reset();
         game.getFrame(1).setPinsDown(1, 5);
         Assert.assertEquals(5, game.getFrame(1).countPinsDown());
     }
 
     /**
-     * Mistake
+     * Erreur: Ce test a pour but de vérifier le nombre de quilles quand il n'y a pas tout les lancer de faits sur une LastFrames
      */
     @Test
-    public void checkThatWhenFirstRollDidntHappendAndSecondRollIsRegisteredTheScoreDoesntIncrement() {
+    public void checkCountPinsDownsWhenNotAllRollsDoneOnLastlFrame() {
+        game.getFrame(9).reset();
+        game.getFrame(9).setPinsDown(1, 5);
+        Assert.assertEquals(5, game.getFrame(9).countPinsDown());
+    }
+
+    /**
+     * Erreur: Ce test a pour but de vérifier qu'un lancer 2 sans avoir fait le 1er,
+     * ne compte pas les points si l'exception est thrown
+     */
+    @Test
+    public void checkThatWhenFirstRollDidntHappenedAndSecondRollIsRegisteredTheScoreDoesntIncrement() {
         game.getFrame(1).reset();
         try {
             game.getFrame(1).setPinsDown(2, 5);
@@ -208,6 +256,9 @@ public class BowlingTest {
         }
     }
 
+    /**
+     * Erreur: Ce test a pour but de vérifier le nombre de lancer lorsque le premier est un dalot
+     */
     @Test
     public void checkCountRollsWhenFirstRollIsDalot() {
         game.getFrame(1).reset();
@@ -215,6 +266,9 @@ public class BowlingTest {
         Assert.assertEquals(2, game.getFrame(1).countRolls());
     }
 
+    /**
+     * Ce test a pour but de vérifier le nombre de quille tombée quand le 1er lancé est un dalot
+     */
     @Test
     public void checkPinsDownWhenFirstRollIsDalot() {
         game.getFrame(1).reset();
@@ -223,7 +277,7 @@ public class BowlingTest {
     }
 
     /**
-     * Mistake
+     * Erreur: Ce test a pour but de vérifier l'existance d'une exception lorsque le score d'un lancer est négatif
      */
     @Test(expected = BowlingException.class)
     public void checkCannotEnterNegativeNumberWhenRolling() {
@@ -232,7 +286,7 @@ public class BowlingTest {
     }
 
     /**
-     * Mistake
+     * Erreur: Ce test a pour but de vérifier le score si tout les lancer sont des strikes sur les NormalFrame
      */
     @Test
     public void checkScoreIfAllStrike() {
