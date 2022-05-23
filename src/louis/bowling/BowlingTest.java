@@ -123,7 +123,7 @@ public class BowlingTest {
     }
 
     /**
-     * Erreur: Ce test a pour but de vérifier que l'on peut lancer 3 fois sur une LastFrame après un strike
+     * Erreur : Ce test a pour but de vérifier que l'on peut lancer 3 fois sur une LastFrame après un strike
      */
     @Test
     public void checkLastFrameRollsWithStrike() {
@@ -132,7 +132,7 @@ public class BowlingTest {
     }
 
     /**
-     * Erreur: Ce test a pour but de vérifier le contenu toString de la game de démo disponible sur Moodle
+     * Erreur : Ce test a pour but de vérifier le contenu toString de la game de démo disponible sur Moodle
      */
     @Test
     public void checkToStringMethodWithRegularGame() {
@@ -233,7 +233,7 @@ public class BowlingTest {
     }
 
     /**
-     * Erreur: Ce test a pour but de vérifier le nombre de quilles quand il n'y a pas tout les lancer de faits sur une LastFrames
+     * Erreur : Ce test a pour but de vérifier le nombre de quilles quand il n'y a pas tout les lancer de faits sur une LastFrames
      */
     @Test
     public void checkCountPinsDownsWhenNotAllRollsDoneOnLastlFrame() {
@@ -243,7 +243,7 @@ public class BowlingTest {
     }
 
     /**
-     * Erreur: Ce test a pour but de vérifier qu'un lancer 2 sans avoir fait le 1er,
+     * Erreur : Ce test a pour but de vérifier qu'un lancer 2 sans avoir fait le 1er,
      * ne compte pas les points si l'exception est thrown
      */
     @Test
@@ -257,7 +257,7 @@ public class BowlingTest {
     }
 
     /**
-     * Erreur: Ce test a pour but de vérifier le nombre de lancer lorsque le premier est un dalot
+     * Erreur : Ce test a pour but de vérifier le nombre de lancer lorsque le premier est un dalot
      */
     @Test
     public void checkCountRollsWhenFirstRollIsDalot() {
@@ -277,7 +277,7 @@ public class BowlingTest {
     }
 
     /**
-     * Erreur: Ce test a pour but de vérifier l'existance d'une exception lorsque le score d'un lancer est négatif
+     * Erreur : Ce test a pour but de vérifier l'existance d'une exception lorsque le score d'un lancer est négatif
      */
     @Test(expected = BowlingException.class)
     public void checkCannotEnterNegativeNumberWhenRolling() {
@@ -286,7 +286,7 @@ public class BowlingTest {
     }
 
     /**
-     * Erreur: Ce test a pour but de vérifier le score si tout les lancer sont des strikes sur les NormalFrame
+     * Erreur : Ce test a pour but de vérifier le score si tout les lancer sont des strikes sur les NormalFrame
      */
     @Test
     public void checkScoreIfAllStrike() {
