@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="bowling-score">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/bowling-score.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/bowling-score.jar!/" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>
